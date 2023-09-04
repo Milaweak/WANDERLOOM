@@ -7,7 +7,6 @@ const Home = () => {
       <h1 className="text-5xl font-extrabold mb-8">WANDERLOOM</h1>
       <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 rounded-lg shadow-lg text-center">
         <h2 className="text-2xl font-semibold mb-2">Itinéraires</h2>
-        
         {/* Ajoutez ici vos cartes de jeux récents */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Exemple de carte de jeu */}
