@@ -13,18 +13,32 @@ const Home = () => {
           <div className="bg-white p-4 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-2">Nom du Jeu 1</h3>
             <p className="text-gray-700">Description du Jeu 1.</p>
-            <Link to="/jeu1" className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Jouer</Link>
+            <Link
+              to="/jeu1"
+              className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+              Jouer
+            </Link>
           </div>
 
           {/* Exemple de carte de jeu */}
           <div className="bg-white p-4 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-2">Nom du Jeu 2</h3>
             <p className="text-gray-700">Description du Jeu 2.</p>
-            <Link to="/jeu2" className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">Jouer</Link>
+            <Link
+              to="/jeu2"
+              className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+              Jouer
+            </Link>
           </div>
 
           {/* Ajoutez plus de cartes de jeux ici */}
         </div>
+        <Link
+              to="/inscription"
+              className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            > S'inscrire </Link>
       </div>
     </div>
   );
