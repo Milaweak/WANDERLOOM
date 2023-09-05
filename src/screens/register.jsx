@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Paper, TextField, Button, Typography } from '@mui/material';
+import GradientButton from '../components/GradiantBouton';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,9 @@ const RegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Ajoutez ici la logique de traitement de l'inscription
+    //logique de traitement de l'inscription
     console.log(formData);
+    console.log('connecté!')
   };
 
   return (
@@ -89,15 +91,8 @@ const RegistrationForm = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ marginTop: '2rem' }}
-          >
-            S'inscrire
-          </Button>
+ <GradientButton type="submit" label="S'inscrire" onClick={handleSubmit} />
+
         </form>
       </Paper>
     </Container>

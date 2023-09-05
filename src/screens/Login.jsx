@@ -5,6 +5,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import GradientButton from "../components/GradiantBouton";
 
 const Login = () => {
   const handleSubmit = (event) => {
@@ -27,7 +28,7 @@ const Login = () => {
         }}
       >
         <Typography component="h1" variant="h5">
-          Sign in
+          Connexion
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -35,7 +36,7 @@ const Login = () => {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Adresse e-mail"
             name="email"
             autoComplete="email"
             autoFocus
@@ -45,25 +46,18 @@ const Login = () => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Mot de passe"
             type="password"
             id="password"
             autoComplete="current-password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Rester connecté"
           />
-          <Button className=""
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            
-          >
-            Sign In
-          </Button>
+
         </Box>
+        <GradientButton type="submit" label="Se connecter" onClick={() => console.log("Bouton cliqué !")} />
       </Box>
     </Container>
   );
