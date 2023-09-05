@@ -1,6 +1,9 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./screens/home";
+import FavorisPage from "./screens/FavorisPage";
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './screens/home';
+
+
 import RegistrationForm from './screens/register';
 
 function App() {
@@ -10,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/inscription" element={<RegistrationForm /> } />
         {/*autres routes ici */}
+        <Route path="/favoris" element={<FavorisPage />} />
       </Routes>
     </Router>
   );
