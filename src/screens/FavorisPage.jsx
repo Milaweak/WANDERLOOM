@@ -1,26 +1,97 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  Grid,
+  Paper,
+  Box,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const FavorisPage = () => {
-  return (
-    <div>
-      <div className="bg-gray-900 text-white min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-5xl font-extrabold mb-8">Mes Itinéraire</h1>
-        <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 rounded-lg shadow-lg text-center">
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">Nom du Jeu 1</h3>
-            <p className="text-gray-700">Description du Jeu 1.</p>
-            <Link
-              to="/jeu1"
-              className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Jouer
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+const Favorites = ({ onEdit, onDelete }) => {
+  //je crée un tableaux de faux itinéraires, ensuite il faudra les fetch de la base de données et map dessus tout pareil
+  const dummyFavoriteRoutes = [
+    {
+      id: 1,
+      name: "Itinéraire 1",
+      description: "Description de l'itinéraire 1",
+    },
+    {
+      id: 2,
+      name: "Itinéraire 2",
+      description: "Description de l'itinéraire 2",
+    },
+    {
+      id: 3,
+      name: "Itinéraire 3",
+      description: "Description de l'itinéraire 3",
+    },
+  ];
 
-export default FavorisPage;
+  const handleEdit = (routeId) => {
+    //grâce à l'id de route que je recup, je fais ici la fonction pour modifier l'itineraire
+    onEdit(routeId);
+  };
+
+  const handleDelete = (routeId) => {
+    //fonction de gestion de la suppression avec l'ID de la route/itineraire
+    onDelete(routeId);
+  };
+
+    return (
+      <Box sx={{ width: '75%', margin: '0 auto' }}>
+        <Typography variant="h5" component="div">
+          Itinéraires Favoris
+        </Typography>
+        <Grid container spacing={3}>
+          {dummyFavoriteRoutes.map((route, index) => (
+            <Grid item xs={12} key={index}>
+              <Paper
+                elevation={3}
+                sx={{
+                  padding: '1rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  transition: 'background-color 0.3s',
+                  '&:hover': {
+                    backgroundColor: '#f0f0f0',
+                  },
+                }}
+              >
+                <div>
+                  <Typography variant="body1" gutterBottom>
+                    {route.name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {route.description}
+                  </Typography>
+                </div>
+                <div>
+                  <IconButton
+                    color="primary"
+                    aria-label="Editer"
+                    onClick={() => handleEdit(route.id)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    aria-label="Supprimer"
+                    onClick={() => handleDelete(route.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    );
+  };
+
+export default Favorites;
