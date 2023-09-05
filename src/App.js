@@ -5,6 +5,7 @@ import FavorisPage from "./screens/FavorisPage";
 
 
 import RegistrationForm from './screens/register';
+import Login from "./screens/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/inscription" element={<RegistrationForm /> } />
         {/*autres routes ici */}
         <Route path="/favoris" element={<FavorisPage />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
