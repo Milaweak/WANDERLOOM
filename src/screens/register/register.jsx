@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Container, Paper, TextField, Button, Typography } from '@mui/material';
-import GradientButton from '../components/GradiantBouton';
+import React, { useState } from "react";
+import { Container, Paper, TextField, Button, Typography } from "@mui/material";
+import GradientButton from "../../components/GradiantBouton";
+import registercss from "./register.css";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (event) => {
@@ -22,25 +23,22 @@ const RegistrationForm = () => {
     event.preventDefault();
     //logique de traitement de l'inscription
     console.log(formData);
-    console.log('connecté!')
+    console.log("connecté!");
   };
 
   return (
     <Container maxWidth="xs">
       <Paper
         sx={{
-          marginTop: '4rem',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '3rem',
+          marginTop: "4rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "3rem",
         }}
       >
         <Typography variant="h5">Inscription</Typography>
-        <form
-          onSubmit={handleSubmit}
-          sx={{ width: '100%', marginTop: '1rem' }}
-        >
+        <form onSubmit={handleSubmit} sx={{ width: "100%", marginTop: "1rem" }}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -91,8 +89,11 @@ const RegistrationForm = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
           />
- <GradientButton type="submit" label="S'inscrire" onClick={handleSubmit} />
-
+          <GradientButton
+            type="submit"
+            label="S'inscrire"
+            onClick={handleSubmit}
+          />
         </form>
       </Paper>
     </Container>

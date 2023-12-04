@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -47,11 +46,17 @@ const Home = () => {
         >
           login
         </Link>
-            <Link
-              to="/favoris"
-              className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            > Mes favoris </Link>
-            
+        <Link
+          to="/favoris"
+          className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+        >
+          {" "}
+          Mes favoris{" "}
+        </Link>
+        <Link
+          to="/MapPage"
+          className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+        > map</Link>
       </div>
     </div>
   );
