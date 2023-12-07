@@ -1,17 +1,9 @@
 import React from "react";
-import FavoritePages from "./FavorisPage/FavorisPage.css";
-import {
-  Card,
-  CardContent,
-  Typography,
-  IconButton,
-  Grid,
-  Paper,
-  Box,
-} from "@mui/material";
+
+import { Typography, IconButton, Grid, Paper, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import DataFetcher from "../api/DataFetcher";
 const Favorites = ({ onEdit, onDelete }) => {
   //je crée un tableaux de faux itinéraires, ensuite il faudra les fetch de la base de données et map dessus tout pareil
   const dummyFavoriteRoutes = [
@@ -43,7 +35,21 @@ const Favorites = ({ onEdit, onDelete }) => {
   };
 
   return (
-    <Box sx={{ width: "75%", margin: "0 auto" }}>
+    <Box
+      sx={{
+        padding: "1rem",
+        width: "85%",
+        height: "80vh", // Ajustez en fonction de vos besoins
+        margin: "auto",
+        marginTop: "2rem",
+        backgroundColor: "#F2F0F0",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "25px",
+      }}
+    >
       <Typography variant="h5" component="div">
         Itinéraires Favoris
       </Typography>
@@ -58,12 +64,10 @@ const Favorites = ({ onEdit, onDelete }) => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 transition: "background-color 0.3s",
-                "&:hover": {
-                  borderRadius: "16px",
-                  border: "3px solid #6A6A6A",
-                  background: "#FAFAFA",
-                  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-                },
+                borderRadius: "35px",
+                border: "3px solid #6A6A6A",
+                background: "#FAFAFA",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               }}
             >
               <div>
