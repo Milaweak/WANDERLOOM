@@ -21,7 +21,6 @@ const RegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //logique de traitement de l'inscription
     console.log(formData);
     console.log("connecté!");
   };
@@ -89,11 +88,7 @@ const RegistrationForm = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
           />
-          <GradientButton
-            type="submit"
-            label="S'inscrire"
-            onClick={handleSubmit}
-          />
+          <GradientButton type="submit" label="S'inscrire" onClick={handleSubmit} />
         </form>
       </Paper>
     </Container>

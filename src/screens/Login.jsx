@@ -1,4 +1,3 @@
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -21,8 +20,12 @@ const Login = () => {
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ backgroundColor: "#F2F0F0",borderRadius:"16px",height:"40vh",boxShadow:"0px 4px 4px rgba(0, 0, 0, 0.25)"
-     }}
+      sx={{
+        backgroundColor: "#F2F0F0",
+        borderRadius: "16px",
+        height: "40vh",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+      }}
     >
       <Box
         sx={{
@@ -56,16 +59,9 @@ const Login = () => {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Rester connecté"
-          />
+          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Rester connecté" />
         </Box>
-        <GradientButton
-          type="submit"
-          label="Se connecter"
-          onClick={() => console.log("Bouton cliqué !")}
-        />
+        <GradientButton type="submit" label="Se connecter" />
       </Box>
     </Container>
   );

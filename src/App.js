@@ -4,6 +4,7 @@ import RegistrationForm from "./screens/register/register";
 import Favorites from "./screens/FavorisPage";
 import Login from "./screens/Login";
 import MapPage from "./screens/MapPage";
+import ItineraryForm from "./screens/ItineraryForm";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/favoris" element={<Favorites />} />
         <Route path="/login" element={<Login />} />
         <Route path="/MapPage" element={<MapPage />} />
+        <Route path="/ItinaryForm" element={<ItineraryForm />} />
       </Routes>
     </Router>
   );
