@@ -6,7 +6,7 @@ function ItineraryForm() {
   const [city, setCity] = useState("");
   const [dates, setDates] = useState({
     startDate: "",
-    endDate: "",
+    endDate: "p",
   });
   const [dataResponse, setDataResponse] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
