@@ -25,16 +25,16 @@ const Favorites = ({ onEdit, onDelete }) => {
     <Box
       sx={{
         padding: "1rem",
-        width: "90%", // Corrected typo from '9O%' to '90%'
+        width: "90%",
         margin: "auto",
         marginTop: "2rem",
         backgroundColor: "#F2F0F0",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start", // Changed to start alignment
+        justifyContent: "flex-start",
         alignItems: "center",
         borderRadius: "25px",
-        overflow: "auto", // Ensures scrolling if content overflows
+        overflow: "auto",
         maxHeight: "80vh",
       }}
     >
@@ -44,10 +44,10 @@ const Favorites = ({ onEdit, onDelete }) => {
       <Grid container spacing={3}>
         {dataResponse !== null && Object.entries(dataResponse).length > 0
           ? Object.values(dataResponse).map(
-              (route, index) => (
+              (route, key) => (
                 console.log(dataResponse),
                 (
-                  <Grid item xs={12} key={index}>
+                  <Grid item xs={12} key={key}>
                     <Paper
                       elevation={3}
                       sx={{
@@ -64,10 +64,10 @@ const Favorites = ({ onEdit, onDelete }) => {
                     >
                       <div>
                         <Typography variant="h6" component="div">
-                          {route.Nom}
+                          {}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                          {route.Matin}
+                          {route.description}
                         </Typography>
                       </div>
                       <div>

@@ -4,7 +4,6 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "./Map.css"; // Ensure you create a CSS file with the styles provided below
 import DataFetcher from "../api/DataFetcher";
 
-
 function Map() {
   const position = [51.505, -0.09]; // Replace with the desired default latitude and longitude
   const [dataResponse, setDataResponse] = useState(null);
