@@ -1,0 +1,18 @@
+.split-screen-container {
+    display: flex;
+    height: 100vh; /* Use full height of the viewport */
+  }
+  
+  .itinerary {
+    width: 40%; /* Adjust the width as necessary */
+    background-color: #fff; /* Background color for the itinerary section */
+    overflow-y: auto; /* Enable scroll if content is too long */
+    padding: 20px; /* Add some padding */
+    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.2); /* Optional: adds a shadow to the right of the itinerary to give depth */
+  }
+  
+  .map-container {
+    width: 60%; /* Adjust the width as necessary */
+    height: 100vh; /* Use full height of the viewport */
+  }
+  
