@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DataFetcher from "../api/DataFetcher";
-import { Dialog } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 function ItineraryForm() {
   const [city, setCity] = useState("");
@@ -8,10 +8,15 @@ function ItineraryForm() {
     startDate: "",
     endDate: "",
   });
-  const [dataResponse, setDataResponse] = useState(null); // État pour stocker la réponse
+  const [dataResponse, setDataResponse] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleConfirm = async () => {
+    setOpenDialog(false);
     const formData = {
       city: city,
       startDate: dates.startDate,
@@ -22,78 +27,54 @@ function ItineraryForm() {
     await DataFetcher(formData, setDataResponse);
   };
 
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleOpenDialog(); // Ouvrir le dialogue de confirmation
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        maxWidth: "300px",
-        margin: "100px auto",
-        padding: "20px",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        borderRadius: "8px",
-        paddingBottom: "20px",
-      }}
-    >
-      <label style={{ fontWeight: "bold", marginBottom: "5px" }}>
-        City:
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          style={{
-            padding: "8px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            marginBottom: "10px",
-          }}
-        />
-      </label>
-      <label style={{ fontWeight: "bold", marginBottom: "5px" }}>
-        Start Date:
-        <input
-          type="date"
-          value={dates.startDate}
-          onChange={(e) => setDates({ ...dates, startDate: e.target.value })}
-          style={{
-            padding: "8px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            marginBottom: "10px",
-          }}
-        />
-      </label>
-      <label style={{ fontWeight: "bold", marginBottom: "5px" }}>
-        End Date:
-        <input
-          type="date"
-          value={dates.endDate}
-          onChange={(e) => setDates({ ...dates, endDate: e.target.value })}
-          style={{
-            padding: "8px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            marginBottom: "10px",
-          }}
-        />
-      </label>
-      <button
-        type="submit"
+    <>
+      <form
+        onSubmit={handleSubmit}
         style={{
-          padding: "10px 20px",
-          border: "none",
-          borderRadius: "4px",
-          backgroundColor: "#007bff",
-          color: "white",
-          cursor: "pointer",
+          backgroundColor: "white",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          maxWidth: "300px",
+          margin: "100px auto",
+          padding: "20px",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+          borderRadius: "8px",
+          paddingBottom: "20px",
         }}
       >
-        Submit
-      </button>
-    </form>
+        {/* Vos champs de formulaire ici */}
+      </form>
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Confirmer l'ajout"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Êtes-vous sûr de vouloir ajouter cet itinéraire ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Annuler</Button>
+          <Button onClick={handleConfirm} autoFocus>
+            Confirmer
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
