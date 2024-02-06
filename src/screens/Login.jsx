@@ -1,3 +1,4 @@
+import React from "react";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -5,14 +6,22 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import GradientButton from "../components/GradiantBouton";
+import { login } from "../api/DataFetcher"; // Assurez-vous que le chemin d'importation est correct
 
 const Login = () => {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    // Création de l'objet credentials à partir des données du formulaire
+    const credentials = {
       email: data.get("email"),
       password: data.get("password"),
+    };
+
+    // Appel de la fonction login avec les credentials
+    await login(credentials, (userData) => {
+      console.log(userData);
+      // Vous pouvez ici stocker userData où vous en avez besoin (contexte, localStorage pour le token, etc.)
     });
   };
 
@@ -60,8 +69,8 @@ const Login = () => {
             autoComplete="current-password"
           />
           <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Rester connecté" />
+          <GradientButton type="submit" label="Se connecter" />
         </Box>
-        <GradientButton type="submit" label="Se connecter" />
       </Box>
     </Container>
   );
