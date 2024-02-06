@@ -1,16 +1,31 @@
-// Dans src/components/Navbar.js
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import "./navbar.css";
 
 function Navbar() {
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6">Mon Dashboard</Typography>
-      </Toolbar>
-    </AppBar>
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/inscription">Inscription</Link>
+        </li>
+        <li>
+          <Link to="/favoris">Favoris</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/MapPage">MapPage</Link>
+        </li>
+        <li>
+          <Link to="/ItinaryForm">ItinaryForm</Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
