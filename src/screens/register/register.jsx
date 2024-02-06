@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Container, Paper, TextField, Button, Typography } from "@mui/material";
+import { Container, Paper, TextField, Typography } from "@mui/material";
 import GradientButton from "../../components/GradiantBouton";
+import { register } from "../../api/DataFetcher";
 import registercss from "./register.css";
 
 const RegistrationForm = () => {
@@ -11,6 +12,8 @@ const RegistrationForm = () => {
     confirmPassword: "",
   });
 
+  const [errorMessage, setErrorMessage] = useState(""); // Pour afficher les messages d'erreur
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -19,10 +22,21 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
-    console.log("connecté!");
+    const userData = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    };
+    try {
+      await register(userData, (response) => {
+        console.log("Inscription réussie:", response);
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+      setErrorMessage("Erreur lors de l'inscription. Veuillez réessayer.");
+    }
   };
 
   return (
