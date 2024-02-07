@@ -94,7 +94,7 @@ const Login = () => {
               borderRadius: "999px",
               background: "linear-gradient(to bottom, #4CAF50, #FFD700)",
               color: "black",
-              padding: "12px 24px",
+              padding: "11px 24px ",
             }}
           >
             <button type="submit">send</button>

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const DataFetcher = async (formData = {}, setDataResponse) => {
-  let yolo = JSON.stringify(formData);
   await axios
     .post("http://localhost:8000/api/itinary/publication", formData, {
       headers: {
