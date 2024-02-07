@@ -17,7 +17,8 @@ export const DataFetcher = async (formData = {}, setDataResponse) => {
       console.error("Erreur lors de la requête :", error);
     });
 };
-export const login = async (credentials, setUserData) => {
+export const login = async (credentials) => {
+  console.log(credentials);
   try {
     const response = await axios.post("http://localhost:8000/auth", credentials, {
       headers: {
@@ -25,8 +26,8 @@ export const login = async (credentials, setUserData) => {
         Accept: "application/ld+json",
       },
     });
-    console.log(response);
-    setUserData(response.data);
+
+    return response.data;
   } catch (error) {
     console.error("Erreur lors de la connexion :", error);
   }

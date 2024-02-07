@@ -5,19 +5,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DataFetcher from "../api/DataFetcher";
 const Favorites = ({ onEdit, onDelete }) => {
-  //je crée un tableaux de faux itinéraires, ensuite il faudra les fetch de la base de données et map dessus tout pareil
   const [dataResponse, setDataResponse] = useState(null);
   useEffect(() => {
     DataFetcher(setDataResponse);
   }, []);
 
   const handleEdit = (routeId) => {
-    //grâce à l'id de route que je recup, je fais ici la fonction pour modifier l'itineraire
     onEdit(routeId);
   };
 
   const handleDelete = (routeId) => {
-    //fonction de gestion de la suppression avec l'ID de la route/itineraire
     onDelete(routeId);
   };
 
