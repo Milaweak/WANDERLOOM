@@ -5,17 +5,21 @@ import Favorites from "./screens/FavorisPage";
 import Login from "./screens/Login";
 import MapPage from "./screens/MapPage";
 import ItineraryForm from "./screens/ItineraryForm";
+import Navbar from "./components/layout/navbar";
+import LogoutButton from "./screens/LogoutButton";
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/inscription" element={<RegistrationForm />} />
         <Route path="/favoris" element={<Favorites />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/MapPage" element={<MapPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/ItinaryForm" element={<ItineraryForm />} />
+        <Route path="/logout" element={<LogoutButton />} />
       </Routes>
     </Router>
   );
