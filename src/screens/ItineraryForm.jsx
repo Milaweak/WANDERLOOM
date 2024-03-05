@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DataFetcher from "../api/DataFetcher";
+import { createitinary } from "../api/DataFetcher"; // Assurez-vous d'importer correctement createitinary
 
 import {
   Button,
@@ -7,7 +7,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
   List,
   ListItem,
   ListItemText,
@@ -15,43 +14,53 @@ import {
 } from "@mui/material";
 
 function ItineraryForm() {
-  const [openDialog, setOpenDialog] = useState(false);
   const [city, setCity] = useState("");
   const [dates, setDates] = useState({
     startDate: "",
     endDate: "",
   });
+  const [dataResponse, setDataResponse] = useState(null);
+
   const renderDataDetails = (data) => {
-    return Object.entries(data).map(([day, details]) => (
-      <React.Fragment key={day}>
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          {day.replace("_", " ").toUpperCase()}
-        </Typography>
-        <List>
-          {Object.entries(details).map(([timeOfDay, activities]) => (
-            <ListItem key={timeOfDay}>
-              <Typography component="div">
-                <strong>{timeOfDay.charAt(0).toUpperCase() + timeOfDay.slice(1)}:</strong> {activities.join(", ")}
+    return (
+      <List>
+        {Object.entries(data).map(([date, activities]) => (
+          <React.Fragment key={date}>
+            <ListItem>
+              <Typography variant="h6">
+                {date} {/* Affiche la date */}
               </Typography>
             </ListItem>
-          ))}
-        </List>
-      </React.Fragment>
-    ));
+            {Array.isArray(activities) ? (
+              activities.map((activity, index) => (
+                <ListItem key={index}>
+                  <ListItemText primary={activity} /> {/* Affiche chaque activité */}
+                </ListItem>
+              ))
+            ) : (
+              <ListItem>
+                <ListItemText primary="Aucune activité enregistrée pour cette date" />
+              </ListItem>
+            )}
+          </React.Fragment>
+        ))}
+      </List>
+    );
   };
-
-  const [dataResponse, setDataResponse] = useState(null); // État pour stocker la réponse
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      city: city,
-      startDate: dates.startDate,
-      endDate: dates.endDate,
-    };
+    // Il semble que vous ne passiez pas formData à createitinary, donc cette partie peut être omise si createitinary n'utilise pas ces données
+    // const formData = {
+    // city: city,
+    //startDate: dates.startDate,
+    // endDate: dates.endDate,
+    // };
+    console.log(`Fetching itinerary...`);
 
-    console.log(`Submitting: `, formData);
-    await DataFetcher(formData, setDataResponse);
+    // Appel de createitinary avec setDataResponse comme callback pour mettre à jour l'état
+    await createitinary(setDataResponse); // Ici, vous devez vous assurer que createitinary est défini pour accepter une telle fonction
     setOpenDialog(true);
   };
 
@@ -131,11 +140,7 @@ function ItineraryForm() {
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
         <DialogTitle>Proposition d'itinéraire</DialogTitle>
         <DialogContent dividers>
-          {dataResponse ? (
-            renderDataDetails(dataResponse.itineraire_15_jours)
-          ) : (
-            <Typography>Données non disponibles</Typography>
-          )}
+          {dataResponse ? renderDataDetails(dataResponse) : <Typography>Données non disponibles</Typography>}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Fermer</Button>

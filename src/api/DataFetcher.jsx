@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const DataFetcher = async (formData = {}, setDataResponse) => {
   await axios
-    .post("http://localhost:8000/api/itinary/publication", formData, {
+    .get("http://localhost:8000/api/itinary/user", formData, {
       headers: {
         "Content-Type": "application/ld+json",
         Accept: "application/ld+json",
@@ -10,7 +10,7 @@ export const DataFetcher = async (formData = {}, setDataResponse) => {
     })
     .then((response) => {
       console.log(response);
-      setDataResponse(response.data);
+
     })
     .catch((error) => {
       console.error("Erreur lors de la requête :", error);
@@ -43,6 +43,22 @@ export const register = async (userData, setResponseData) => {
   } catch (error) {
     console.error("Erreur lors de l'inscription :", error.response ? error.response.data : error.message);
   }
+};
+export const createitinary = async (setDataResponse) => {
+  await axios
+
+    .post("http://localhost:8000/api/itinary/publication", {
+      headers: {
+        "Content-Type": "application/ld+json",
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      setDataResponse(response.data);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la requête :", error);
+    });
 };
 
 export default DataFetcher;
