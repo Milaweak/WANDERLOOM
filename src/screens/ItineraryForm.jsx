@@ -1,5 +1,17 @@
 import React, { useState } from "react";
-import DataFetcher from "../api/DataFetcher";
+import { createitinary } from "../api/DataFetcher"; // Assurez-vous d'importer correctement createitinary
+
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 function ItineraryForm() {
   const [city, setCity] = useState("");
@@ -7,19 +19,49 @@ function ItineraryForm() {
     startDate: "",
     endDate: "",
   });
+  const [dataResponse, setDataResponse] = useState(null);
 
-  const [dataResponse, setDataResponse] = useState(null); // État pour stocker la réponse
+  const renderDataDetails = (data) => {
+    return (
+      <List>
+        {Object.entries(data).map(([date, activities]) => (
+          <React.Fragment key={date}>
+            <ListItem>
+              <Typography variant="h6">
+                {date} {/* Affiche la date */}
+              </Typography>
+            </ListItem>
+            {Array.isArray(activities) ? (
+              activities.map((activity, index) => (
+                <ListItem key={index}>
+                  <ListItemText primary={activity} /> {/* Affiche chaque activité */}
+                </ListItem>
+              ))
+            ) : (
+              <ListItem>
+                <ListItemText primary="Aucune activité enregistrée pour cette date" />
+              </ListItem>
+            )}
+          </React.Fragment>
+        ))}
+      </List>
+    );
+  };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      city: city,
-      startDate: dates.startDate,
-      endDate: dates.endDate,
-    };
+    // Il semble que vous ne passiez pas formData à createitinary, donc cette partie peut être omise si createitinary n'utilise pas ces données
+    // const formData = {
+    // city: city,
+    //startDate: dates.startDate,
+    // endDate: dates.endDate,
+    // };
+    console.log(`Fetching itinerary...`);
 
-    console.log(`Submitting: `, formData);
-    await DataFetcher(formData, setDataResponse);
+    // Appel de createitinary avec setDataResponse comme callback pour mettre à jour l'état
+    await createitinary(setDataResponse); // Ici, vous devez vous assurer que createitinary est défini pour accepter une telle fonction
+    setOpenDialog(true);
   };
 
   return (
@@ -95,6 +137,15 @@ function ItineraryForm() {
           Submit
         </button>
       </form>
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Proposition d'itinéraire</DialogTitle>
+        <DialogContent dividers>
+          {dataResponse ? renderDataDetails(dataResponse) : <Typography>Données non disponibles</Typography>}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)}>Fermer</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

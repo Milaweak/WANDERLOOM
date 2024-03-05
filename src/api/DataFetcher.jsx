@@ -44,16 +44,21 @@ export const register = async (userData, setResponseData) => {
     console.error("Erreur lors de l'inscription :", error.response ? error.response.data : error.message);
   }
 };
-export const getItynary = async (setDataResponse) => {
-  try {
-    const response = await axios.get("http://localhost:8000/api/itinary/user", {
+export const createitinary = async (setDataResponse) => {
+  await axios
+
+    .post("http://localhost:8000/api/itinary/publication", {
       headers: {
         "Content-Type": "application/ld+json",
       },
+    })
+    .then((response) => {
+      console.log(response);
+      setDataResponse(response.data);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la requête :", error);
     });
-    console.log("Réponse de l'inscription:", response);
-  } catch (error) {
-    console.error("Erreur lors de l'inscription :", error.response ? error.response.data : error.message);
-  }
-}
+};
+
 export default DataFetcher;
