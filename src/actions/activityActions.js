@@ -31,13 +31,14 @@ const updateActivitySuccess = (activity) => {
 };
 
 
-export const generateActivity = () => async (dispatch) => {
+export const generateActivity = (activityData) => async (dispatch) => {
     try {
         const response = await fetch('http://localhost:8000/api/activity/generate', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type' : 'application/ld+json',
             },
+            body: JSON.stringify(activityData),
         });
 
         if (!response.ok) {
@@ -53,6 +54,7 @@ export const generateActivity = () => async (dispatch) => {
         console.error('Error generating activity:', error);
     }
 };
+
 
 export const deleteActivity = (activityId) => async (dispatch) => {
     try {

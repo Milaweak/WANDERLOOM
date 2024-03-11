@@ -14,6 +14,7 @@ const Login = () => {
     const [rememberMe, setRememberMe] = useState(false);
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const handleSubmit = async (e) => {
@@ -26,16 +27,17 @@ const Login = () => {
             setPasswordError('Le mot de passe doit comporter au moins 5 caractères');
             return;
         }
-            try {
-                const response = await dispatch(loginUser(email, password));
-                if (response) {
-                    dispatch(setToken(response.token));
-                    localStorage.setItem('token', response.token);
-                    navigate('/home');
-                }
-            } catch (error) {
-                console.error('Erreur lors de la connexion:', error);
+        try {
+            const response = await dispatch(loginUser(email, password));
+            if (response) {
+                dispatch(setToken(response.token));
+                localStorage.setItem('token', response.token);
+                navigate('/home');
             }
+        } catch (error) {
+            console.error('Erreur lors de la connexion:', error);
+            setErrorMessage('Identifiants incorrects. Veuillez réessayer.');
+        }
         };
 
 
@@ -84,6 +86,11 @@ const Login = () => {
                         <GradientButton label="Connexion" event={handleSubmit} />
                     </Box>
                 </form>
+                {errorMessage && (
+                    <Typography variant="body2" color="error">
+                        {errorMessage}
+                    </Typography>
+                )}
 
             </Box>
         </Container>

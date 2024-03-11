@@ -45,12 +45,12 @@ const Home = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DateField', 'DateField']}>
                                 <DateField
-                                    label="Dash separator"
+                                    label="Début"
                                     defaultValue={dayjs('2022-04-17')}
                                     format="MM-DD-YYYY"
                                 />
                                 <DateField
-                                    label="Full letter month"
+                                    label="Fin"
                                     defaultValue={dayjs('2022-04-17')}
                                     format="LL"
                                 />

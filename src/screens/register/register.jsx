@@ -4,7 +4,6 @@ import { Box, Container, TextField, Typography } from '@mui/material';
 import GradientButton from "../../components/alt/GradiantBouton";
 
 const RegisterForm = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -12,7 +11,7 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Ajoutez ici la logique de soumission du formulaire
-    console.log({ username, email, password, confirmPassword });
+    console.log({ email, password, confirmPassword });
   };
 
   return (
@@ -22,14 +21,6 @@ const RegisterForm = () => {
             Inscription
           </Typography>
           <form onSubmit={handleSubmit}>
-            <TextField
-                fullWidth
-                label="Nom d'utilisateur"
-                variant="outlined"
-                margin="normal"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
             <TextField
                 fullWidth
                 label="Adresse e-mail"
