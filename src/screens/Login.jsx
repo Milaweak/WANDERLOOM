@@ -1,108 +1,93 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../features/auth/authSlice";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { login } from "../api/DataFetcher";
-import Cookies from "js-cookie";
-import { Checkbox, FormControlLabel } from "@mui/material";
-import GradientButton from "../components/GradiantBouton";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Box, Checkbox, Container, FormControlLabel, TextField, Typography } from '@mui/material';
+import GradientButton from '../components/alt/GradiantBouton';
+import { loginUser } from '../actions/userActions';
+import { setToken } from "../features/userSlice";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data);
-    const credentials = {
-      email: data.get("email"),
-      password: data.get("password"),
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateEmail(email)) {
+            setEmailError('Email invalide');
+            return;
+        }
+        if (!validatePassword(password)) {
+            setPasswordError('Le mot de passe doit comporter au moins 5 caractères');
+            return;
+        }
+            try {
+                const response = await dispatch(loginUser(email, password));
+                if (response) {
+                    dispatch(setToken(response.token));
+                    localStorage.setItem('token', response.token);
+                    navigate('/home');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la connexion:', error);
+            }
+        };
+
+
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
     };
 
-    try {
-      const userData = await login(credentials);
-      console.log(userData, "userData");
-      if (userData.token) {
-        Cookies.set("token", userData.token, { expires: 7 });
-        dispatch(setCredentials({ user: userData.user, token: userData.token }));
-        navigate("/ItinaryForm");
-      } else {
-        console.error("Aucun token reçu");
-      }
-    } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
-    }
-  };
+    const validatePassword = (password) => {
+        return password.length >= 5;
+    };
 
-  // Le reste du code pour le rendu du composant
+    return (
+        <Container component="main" maxWidth="xs" sx={{ backgroundColor: "#F2F0F0", borderRadius: "16px", height: "40vh", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} className="mt-10 mx-auto p-4 md:p-8">
+            <Box sx={{ textAlign: 'center', mt: '2rem' }}>
+                <Typography variant="h4" gutterBottom>
+                    Connexion
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        fullWidth
+                        label="Adresse e-mail"
+                        variant="outlined"
+                        margin="normal"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        error={!!emailError}
+                        helperText={emailError}
+                    />
+                    <TextField
+                        fullWidth
+                        label="Mot de passe"
+                        variant="outlined"
+                        margin="normal"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        error={!!passwordError}
+                        helperText={passwordError}
+                    />
+                    <FormControlLabel
+                        control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />}
+                        label="Rester connecté"
+                    />
+                    <Box>
+                        <GradientButton label="Connexion" event={handleSubmit} />
+                    </Box>
+                </form>
 
-  return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{
-        backgroundColor: "#F2F0F0",
-        borderRadius: "16px",
-        height: "40vh",
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-      }}
-    >
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Connexion
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Adresse e-mail"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Mot de passe"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Rester connecté" />
-          <Box
-            sx={{
-              mt: 2,
-              mb: 2,
-              display: "flex",
-              justifyContent: "center",
-              borderRadius: "999px",
-              background: "linear-gradient(to bottom, #4CAF50, #FFD700)",
-              color: "black",
-              padding: "11px 24px ",
-            }}
-          >
-            <button type="submit">send</button>
-          </Box>
-        </Box>
-      </Box>
-    </Container>
-  );
+            </Box>
+        </Container>
+    );
 };
 
 export default Login;

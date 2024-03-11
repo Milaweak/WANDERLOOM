@@ -7,14 +7,18 @@ const GradientButton = ({ label, event }) => {
     background: "linear-gradient(to bottom, #4CAF50, #FFD700)",
     color: "black",
     padding: "12px 24px",
+    "@media (max-width: 600px)": {
+      padding: "10px 20px",
+      fontSize: "0.8rem",
+      width: "100%",
+    },
   };
 
   return (
-    <Button onclick={event} style={buttonStyle} >
-      {label}
-    </Button>
+      <Button onClick={event} sx={buttonStyle}>
+        {label}
+      </Button>
   );
-
 };
 
 export default GradientButton;

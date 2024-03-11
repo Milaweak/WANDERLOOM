@@ -1,112 +1,70 @@
-import React, { useState } from "react";
-import { Container, Paper, TextField, Typography } from "@mui/material";
-import GradientButton from "../../components/GradiantBouton";
-import { register } from "../../api/DataFetcher";
-import registercss from "./register.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Box, Container, TextField, Typography } from '@mui/material';
+import GradientButton from "../../components/alt/GradiantBouton";
 
-const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+const RegisterForm = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState(""); // Pour afficher les messages d'erreur
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const userData = {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-    };
-    try {
-      await register(userData, (response) => {
-        console.log("Inscription réussie:", response);
-      });
-    } catch (error) {
-      console.error("Erreur lors de l'inscription:", error);
-      setErrorMessage("Erreur lors de l'inscription. Veuillez réessayer.");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Ajoutez ici la logique de soumission du formulaire
+    console.log({ username, email, password, confirmPassword });
   };
 
   return (
-    <Container maxWidth="xs">
-      <Paper
-        sx={{
-          marginTop: "4rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "3rem",
-        }}
-      >
-        <Typography variant="h5">Inscription</Typography>
-        <form onSubmit={handleSubmit} sx={{ width: "100%", marginTop: "1rem" }}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Nom d'utilisateur"
-            name="username"
-            autoComplete="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Adresse e-mail"
-            name="email"
-            autoComplete="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Mot de passe"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="confirmPassword"
-            label="Confirmer le mot de passe"
-            type="password"
-            id="confirmPassword"
-            autoComplete="current-password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          <GradientButton type="submit" label="S'inscrire" onClick={handleSubmit} />
-        </form>
-      </Paper>
-    </Container>
+      <Container component="main" maxWidth="xs" sx={{ backgroundColor: "#F2F0F0", borderRadius: "16px", height: "60vh", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "20px" }}>
+        <Box sx={{ textAlign: 'center', mt: '2rem' }}>
+          <Typography variant="h4" gutterBottom>
+            Inscription
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+                fullWidth
+                label="Nom d'utilisateur"
+                variant="outlined"
+                margin="normal"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+                fullWidth
+                label="Adresse e-mail"
+                variant="outlined"
+                margin="normal"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+                fullWidth
+                label="Mot de passe"
+                variant="outlined"
+                margin="normal"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+                fullWidth
+                label="Confirmer le mot de passe"
+                variant="outlined"
+                margin="normal"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <GradientButton label="S'INSCRIRE" event={handleSubmit} />
+          </form>
+          <Typography variant="body2" sx={{ marginTop: '1rem' }}>
+            Vous avez déjà un compte ? <Link to="/login">Connectez-vous ici !</Link>
+          </Typography>
+        </Box>
+      </Container>
   );
 };
 
-export default RegistrationForm;
+export default RegisterForm;
+
