@@ -18,7 +18,7 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
         <AppBar position="static" style={{ backgroundColor: '#333' }}>
             <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
                         WanderLoom
                     </Link>
                 </Typography>

@@ -9,6 +9,7 @@ import ActivityDetailPage from "./screens/ActivityDetailPage";
 import {useDispatch} from "react-redux";
 import {setToken} from "./features/userSlice";
 import background from "./wallpaper.png";
+import ItineraryDetailPage from "./screens/ItineraryDetailPage";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -25,12 +26,13 @@ const App = () => {
             <div style={{ backgroundImage: `url(${background})` , backgroundSize: 'cover', minHeight: '100vh'}} >
                 <Navbar />
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/inscription" element={<RegistrationForm />} />
                     <Route path="/favorites" element={<Favorites />} />
                     <Route path="/home" element={<Home/>} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/activity/:id" element={<ActivityDetailPage />} />
+                    <Route path="/itinerary/:id" element={<ItineraryDetailPage/>} />
                 </Routes>
             </div>
         </Router>

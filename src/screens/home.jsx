@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
-import { fetchUserItineraries } from '../actions/userActions';
+import { fetchUserItineraries } from '../actions/itineraryActions';
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import { Link } from 'react-router-dom';
 
@@ -52,7 +52,7 @@ const Home = () => {
                                 <DateField
                                     label="Fin"
                                     defaultValue={dayjs('2022-04-17')}
-                                    format="LL"
+                                    format="MM-DD-YYYY"
                                 />
                             </DemoContainer>
                         </LocalizationProvider>
@@ -69,15 +69,15 @@ const Home = () => {
             {itineraries && itineraries.map((itinerary, index) => (
                 <div key={index} className="mt-8">
                     <Typography variant="h5" gutterBottom className="text-yellow-400">
-                        {itinerary.country}
+                        <Link to={`/itinerary/${itinerary.id}`}>{itinerary.country}</Link>
                     </Typography>
                     <TableContainer component={Paper} className="rounded-lg">
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className="font-semibold">Dates</TableCell>
-                                    <TableCell className="font-semibold">Moment de la journée</TableCell>
-                                    <TableCell className="font-semibold">Activité</TableCell>
+                                    <TableCell className="font-semibold bg-lime-200">Dates</TableCell>
+                                    <TableCell className="font-semibold bg-lime-200 whitespace-nowrap">Moment de la journée</TableCell>
+                                    <TableCell className="font-semibold bg-lime-200">Activité</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

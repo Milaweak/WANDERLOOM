@@ -1,4 +1,4 @@
-import { setToken, setItineraries } from '../features/userSlice';
+import { setToken } from '../features/userSlice';
 
 export const loginUser = (email, password) => async (dispatch) => {
     try {
@@ -24,7 +24,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     }
 };
 
-export const fetchUserItineraries = () => async (dispatch, getState) => {
+/*export const fetchUserItineraries = () => async (dispatch, getState) => {
     try {
         const { email, password } = getState().user;
         const token = getState().user.token;
@@ -49,7 +49,7 @@ export const fetchUserItineraries = () => async (dispatch, getState) => {
     } catch (error) {
         console.error('Erreur lors de la récupération des itinéraires de l\'utilisateur:', error);
     }
-};
+};*/
 
 
 
